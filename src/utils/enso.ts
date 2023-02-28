@@ -1,6 +1,5 @@
 import { SourceStyleEnum, Poem } from './../common.types';
 import blake2b from "blake2b";
-import { Buffer } from "buffer";
 
 function getRndInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -110,7 +109,8 @@ export function getPoemCalculations(poemData: Poem, reverse: boolean, dimension:
   const poem = poemData.lines.join("\n");
 
   var output = new Uint8Array(32);
-  var input = Buffer.from(poem);
+  var enc = new TextEncoder()
+  var input = enc.encode(poem);
   const hash = blake2b(output.length)
     .update(input)
     .digest()
