@@ -11,5 +11,5 @@ const svg = generateSVG(arcs, dimension);
 
 svg2img(svg, function(error: any, buffer: any) {
     //returns a Buffer
-    fs.writeFileSync('daily.png', buffer);
+    fs.writeFileSync('dist/daily.png', buffer);
 });
