@@ -10,42 +10,35 @@
     />
     <div id="form" v-if="state.editMode">
       <div id="buttons">
-        <button @click="prepareDownload" class="download">
-          Download as SVG
-        </button>
-        <button @click="prepareDownloadPNG" class="download">
-          Download as PNG
-        </button>
+        <button @click="prepareDownload" class="download">Download as SVG</button>
+        <button @click="prepareDownloadPNG" class="download">Download as PNG</button>
         <button @click="state.reverse = !state.reverse">
           {{ state.reverse ? "Clockwise" : "Anti-Clockwise" }}
         </button>
         <!-- <button @click="state.showSource = !state.showSource">
           {{ state.showSource ? "Hide Source" : "Show Source" }}
         </button> -->
-       
+
         <button @click="resetPoem">Reset</button>
-         
       </div>
-      <input
-        type="text"
-        name="title"
-        v-model="state.poem.title"
-        placeholder="Title"
-      />
+      <input type="text" name="title" v-model="state.poem.title" placeholder="Title" />
       <div class="form-group">
-      <input
-        type="text"
-        name="title"
-        v-model="state.poem.author"
-        placeholder="Author"
-      />
-      <div class="selection">
-          <label for="source">Source: </label> <select v-model="state.sourceStyle" >
-          <option v-for="(val, key) in SourceStyleEnum" :value="val" :key="key">{{val}}</option>
-         </select>
+        <input
+          type="text"
+          name="title"
+          v-model="state.poem.author"
+          placeholder="Author"
+        />
+        <div class="selection">
+          <label for="source">Source: </label>
+          <select v-model="state.sourceStyle">
+            <option v-for="(val, key) in SourceStyleEnum" :value="val" :key="key">
+              {{ val }}
+            </option>
+          </select>
         </div>
       </div>
-      
+
       <textarea
         name="content"
         id=""
@@ -59,18 +52,17 @@
         <h4 @click="state.showAbout = !state.showAbout">About CyberEnsō</h4>
         <div :class="{ content: true, contentshow: state.showAbout }">
           <p>
-            You might be wondering what is an Ensō! Ensō is a Zen-buddhist
-            practice that allows one to create a momentous artwork. To know more
-            you can visit the
+            You might be wondering what is an Ensō! Ensō is a Zen-buddhist practice that
+            allows one to create a momentous artwork. To know more you can visit the
             <a href="https://en.wikipedia.org/wiki/Ens%C5%8D" target="_blank"
               >Wikipedia Page</a
             >.
           </p>
           <p>
-            CyberEnsō is my take on traditional Ensō. It is a simple web app to
-            create an momentous Ensō. We take the content from the textarea and
-            <b>hash</b> it. Hashing is a destructive process and I'm using it as
-            an analog of <b>clearing one's mind</b> for painting an Ensō.
+            CyberEnsō is my take on traditional Ensō. It is a simple web app to create an
+            momentous Ensō. We take the content from the textarea and
+            <b>hash</b> it. Hashing is a destructive process and I'm using it as an analog
+            of <b>clearing one's mind</b> for painting an Ensō.
           </p>
         </div>
       </div>
@@ -85,7 +77,8 @@ import Enso from "./components/Enso.vue";
 import { getRandomPoem } from "./poems";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
-import { SourceStyleEnum } from './common.types';
+import { SourceStyleEnum } from "./common.types";
+import { dataToPoem } from "./utils/enso";
 
 const state = reactive({
   poem: getRandomPoem(),
@@ -123,13 +116,7 @@ function prepareDownloadPNG() {
   });
 }
 
-const poemData = computed(() => {
-  return {
-    title: state.poem.title,
-    author: state.poem.author,
-    lines: state.poem.content.split("\n"),
-  };
-});
+const poemData = computed(() => dataToPoem(state.poem));
 
 const sourceOptions = Object.values(SourceStyleEnum);
 </script>
@@ -193,7 +180,6 @@ const sourceOptions = Object.values(SourceStyleEnum);
       border: 1px solid #b6b1ae;
       padding: 5px;
       font-family: Lato, sans-serif;
-
     }
 
     input,
@@ -228,16 +214,16 @@ const sourceOptions = Object.values(SourceStyleEnum);
         flex: 1;
         margin-right: 1vw;
       }
-       .selection {
+      .selection {
         // min-width: 50%;
         margin-bottom: 1vw;
-        
-      background-color: #e8e3df;
-      border: 1px solid #b6b1ae;
-      display: flex;
-      align-items: center;
-      padding-left: 5px;
-      font-family: Lato, sans-serif;
+
+        background-color: #e8e3df;
+        border: 1px solid #b6b1ae;
+        display: flex;
+        align-items: center;
+        padding-left: 5px;
+        font-family: Lato, sans-serif;
         select {
           height: 40px;
           background-color: #e8e3df;
