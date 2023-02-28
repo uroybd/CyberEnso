@@ -1,8 +1,6 @@
 import { ImageResponse } from '@vercel/og';
 import { getRandomPoem } from "../src/poems";
 import { dataToPoem, generateSVG, getPoemCalculations } from '../src/utils/enso';
-const fs = require('fs');
-const svg2img = require('svg2img');
 const poemData = dataToPoem(getRandomPoem());
 const reverse = false;
 const dimension: [number, number] = [3024, 1964]
