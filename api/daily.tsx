@@ -13,7 +13,7 @@ export const config = {
 export default function () {
   return new ImageResponse(
     (
-     svg
+     <div>Hello world</div>
     ),
     {
       width: dimension[0],
