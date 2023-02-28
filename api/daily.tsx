@@ -11,9 +11,12 @@ export const config = {
 };
 
 export default function () {
-  return new ImageResponse(
-    (
-     <div>Hello world</div>
+    const svgDiemension = `0 0 ${dimension.join(' ')}`
+    return new ImageResponse(
+        (
+            <svg viewBox={svgDiemension} xmlns='http://www.w3.org/2000/svg'>
+                <rect width='100%' height='100%' fill='#e8e3df'></rect>
+            </svg>
     ),
     {
       width: dimension[0],
