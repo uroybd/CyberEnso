@@ -7,7 +7,7 @@ const reverse = false;
 const dimension: [number, number] = [3024, 1964]
 const { arcs } = getPoemCalculations(poemData, reverse, dimension);
 
-const svg = generateSVG(arcs, dimension, );
+const svg = generateSVG(arcs, dimension);
 
 svg2img(svg, function(error: any, buffer: any) {
     //returns a Buffer

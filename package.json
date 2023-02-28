@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/node": "^18.14.2",
+    "@vercel/og": "^0.2.0",
     "blake2b": "^2.1.4",
     "blakejs": "^1.1.1",
     "buffer": "^6.0.3",
