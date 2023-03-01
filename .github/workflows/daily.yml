@@ -3,7 +3,7 @@ name: Schedule Daily Image generation
 
 on:
   schedule:
-    - cron: "10 15 * * *"
+    - cron: "30 15 * * *"
   workflow_dispatch:
 
 jobs:

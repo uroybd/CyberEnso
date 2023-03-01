@@ -175,17 +175,29 @@ export function getPoemCalculations(poemData: Poem, reverse: boolean, dimension:
   };
 }
 
-export function generateSVGArc(arcDescription: string): string {
-    return `<path fill="none" stroke="#000000" stroke-width="5" d="${arcDescription}" stroke-linecap="round" shape-rendering="geometricPrecision" />`
+const THEMES = {
+  "light": {
+    "fg": "#000000",
+    "bg": "#e8e3df"
+  },
+  "dark": {
+    "fg": "#FFFFFF",
+    "bg": "#1B2122"
+  }
 }
 
-export function generateSVG(arcs: string[], dimension: [number, number], source: string | null = null): string {
-  const parts = [`<svg id="svgenso" viewBox = "0 0 ${dimension.join(' ')}" xmlns = "http://www.w3.org/2000/svg" ><rect width="100%" height = "100%" fill = "#e8e3df" />`];
+export function generateSVGArc(arcDescription: string, color: string): string {
+    return `<path fill="none" stroke="${color}" stroke-width="5" d="${arcDescription}" stroke-linecap="round" shape-rendering="geometricPrecision" />`
+}
+
+export function generateSVG(arcs: string[], dimension: [number, number], dark: boolean = false, source: string | null = null): string {
+  let theme = dark ? THEMES['dark'] : THEMES['light']
+  const parts = [`<svg id="svgenso" viewBox = "0 0 ${dimension.join(' ')}" xmlns = "http://www.w3.org/2000/svg" ><rect width="100%" height = "100%" fill = "${theme.bg}" />`];
   arcs.forEach((a) => {
-    parts.push(generateSVGArc(a));
+    parts.push(generateSVGArc(a, theme.fg));
   })
   if (source != null) {
-    parts.push(`<text x="${dimension[0] - 20}" y="${dimension[1] - 20}" color="black" text-anchor="end" font-size="40" font-family="Arnold, sans-serif">${source}</text>`);
+    parts.push(`<text x="${dimension[0] - 20}" y="${dimension[1] - 20}" color="${theme.fg}" text-anchor="end" font-size="40" font-family="Arnold, sans-serif">${source}</text>`);
   }
   parts.push('</svg>')
   return parts.join("\n");

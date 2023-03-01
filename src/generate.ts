@@ -13,3 +13,10 @@ svg2img(svg, function(error: any, buffer: any) {
     //returns a Buffer
     fs.writeFileSync('dist/daily.png', buffer);
 });
+
+const svg_dark = generateSVG(arcs, dimension, true);
+
+svg2img(svg_dark, function(error: any, buffer: any) {
+    //returns a Buffer
+    fs.writeFileSync('dist/daily_dark.png', buffer);
+});
