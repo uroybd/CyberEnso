@@ -1,3 +1,23 @@
-- name: Schedule Build & Deploy Hooks
-  uses: codemzy/schedule-build-action@1.0.2
-  - cron: "5 15 * * *"
+# This action triggers the build hook
+name: Schedule Build & Deploy Hooks
+description: Schedules builds of static sites on services like Netlify and Vercel by triggering build hooks.
+branding:
+  icon: "clock"
+  color: "blue"
+# Controls when the workflow will run
+on:
+  schedule:
+    # Runs at 9am every weekday
+    - cron: "5 15 * * *"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# The workflow to run
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Runs a request to the build hook
+      # For security keep your build hook secret - add it to your github repo in Settings > Secrets
+      - name: Build hook request
+        run: curl -X POST -d {} ${{ secrets.BUILD_HOOK }}
