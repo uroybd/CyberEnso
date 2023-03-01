@@ -1,9 +1,6 @@
 # This action triggers the build hook
 name: Schedule Daily Image generation
-description: Schedules builds of static sites on services like Netlify and Vercel by triggering build hooks.
-branding:
-  icon: "clock"
-  color: "blue"
+
 on:
   schedule:
     - cron: "10 15 * * *"
