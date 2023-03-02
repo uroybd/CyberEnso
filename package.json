@@ -2,11 +2,12 @@
   "name": "ensovue",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm-run-all generate devserver",
+    "devserver": "vite",
     "build": "vite build",
     "serve": "vite preview",
     "generate": "ts-node src/generate.ts",
-    "deploy": "npm-run-all build generate"
+    "deploy": "npm-run-all generate build"
   },
   "dependencies": {
     "@types/node": "^18.14.2",

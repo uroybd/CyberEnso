@@ -7,7 +7,7 @@
         :key="`arc` + idx"
         fill="none"
         stroke="#000000"
-        stroke-width="5"
+        :stroke-width="computedPoem.lineWidth + 1"
         :d="arc"
         stroke-linecap="round"
         shape-rendering="geometricPrecision"

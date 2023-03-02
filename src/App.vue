@@ -1,7 +1,12 @@
 <template>
   <div class="container">
-    <div id="edit" @click="state.editMode = !state.editMode">
-      {{ state.editMode ? "Close" : "Edit" }}
+    <div class="toolbar">
+      <div id="edit" @click="state.showDaily = !state.showDaily">
+        {{ state.showDaily ? "Close" : "Today's Enso" }}
+      </div>
+      <div id="edit" @click="state.editMode = !state.editMode">
+        {{ state.editMode ? "Close" : "Edit" }}
+      </div>
     </div>
     <Enso
       :poem-data="poemData"
@@ -67,6 +72,50 @@
         </div>
       </div>
     </div>
+    <div id="daily" v-show="state.showDaily">
+      <div class="panes image">
+        <img :src="`/${today}-${dailyVersions[state.currentVersion]}.png`" />
+      </div>
+      <div class="panes controls">
+        <div id="buttons">
+          <div class="form-group">
+            <div class="selection">
+              <label for="source">Source: </label>
+              <select v-model="state.currentVersion">
+                <option v-for="(val, key) in dailyVersions" :value="key" :key="key">
+                  {{ key }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <a
+            :href="`/${today}-${dailyVersions[state.currentVersion]}.png`"
+            class="button download"
+            download
+            >Download</a
+          >
+        </div>
+        <div class="links">
+          <div class="link">
+            Generic:
+            <a href="`/${dailyVersions[state.currentVersion]}.png`"
+              >https://enso.utsob.me{{ `/${dailyVersions[state.currentVersion]}.png` }}</a
+            >
+          </div>
+          <div class="link">
+            Today:
+            <a href="`/${today}-${dailyVersions[state.currentVersion]}.png`"
+              >https://enso.utsob.me{{
+                `/${today}-${dailyVersions[state.currentVersion]}.png`
+              }}</a
+            >
+          </div>
+          <div class="link">
+            Text: <a href="/todays-text.txt">https://enso.utsob.me/todays-text.txt</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,12 +135,16 @@ const state = reactive({
   editMode: false,
   showAbout: false,
   reverse: false,
+  showDaily: false,
+  currentVersion: "Light",
 });
 
 function resetPoem() {
   const newPoem = getRandomPoem();
   state.poem = newPoem;
 }
+
+let today = new Date().toISOString().split("T")[0];
 
 function prepareDownload() {
   const node = document.getElementById("svgenso").outerHTML;
@@ -118,7 +171,12 @@ function prepareDownloadPNG() {
 
 const poemData = computed(() => dataToPoem(state.poem));
 
-const sourceOptions = Object.values(SourceStyleEnum);
+const dailyVersions = {
+  Light: "daily",
+  Dark: "daily-dark",
+  "Light with source": "daily-source",
+  "Dark with source": "daily-source-dark",
+};
 </script>
 
 <style lang="scss">
@@ -157,12 +215,15 @@ const sourceOptions = Object.values(SourceStyleEnum);
     flex-direction: column;
   }
 
-  #edit {
+  .toolbar {
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
     z-index: 99;
+    display: flex;
+    flex-direction: end;
+    gap: 10px;
   }
 
   #form {
@@ -172,65 +233,68 @@ const sourceOptions = Object.values(SourceStyleEnum);
     display: flex;
     flex-direction: column;
 
-    input,
-    button,
-    textarea {
-      margin-bottom: 1vw;
-      background-color: #e8e3df;
-      border: 1px solid #b6b1ae;
-      padding: 5px;
-      font-family: Lato, sans-serif;
-    }
-
-    input,
-    button {
-      min-height: 40px;
-    }
-
-    #buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      button {
-        width: 49%;
-      }
-
-      .download {
-        width: 49%;
-      }
-    }
-
     @media (orientation: portrait) {
       width: 100%;
       height: auto;
     }
+  }
 
-    .form-group {
+  input,
+  button,
+  .button,
+  textarea {
+    margin-bottom: 1vw;
+    background-color: #e8e3df;
+    border: 1px solid #b6b1ae;
+    padding: 5px;
+    font-family: Lato, sans-serif;
+  }
+
+  input,
+  .button,
+  button {
+    min-height: 40px;
+  }
+
+  #buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    button,
+    .button {
+      width: 49%;
+    }
+
+    .download {
+      width: 49%;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    input {
+      flex: 1;
+      margin-right: 1vw;
+    }
+    .selection {
+      // min-width: 50%;
+      margin-bottom: 1vw;
+
+      background-color: #e8e3df;
+      border: 1px solid #b6b1ae;
       display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      input {
-        flex: 1;
-        margin-right: 1vw;
-      }
-      .selection {
-        // min-width: 50%;
-        margin-bottom: 1vw;
-
+      align-items: center;
+      padding-left: 5px;
+      font-family: Lato, sans-serif;
+      select {
+        height: 40px;
         background-color: #e8e3df;
-        border: 1px solid #b6b1ae;
-        display: flex;
-        align-items: center;
+        border: none;
         padding-left: 5px;
-        font-family: Lato, sans-serif;
-        select {
-          height: 40px;
-          background-color: #e8e3df;
-          border: none;
-          padding-left: 5px;
-          // border-bottom: 1px solid #b6b1ae;
-        }
+        // border-bottom: 1px solid #b6b1ae;
       }
     }
   }
@@ -278,5 +342,71 @@ const sourceOptions = Object.values(SourceStyleEnum);
       }
     }
   }
+}
+
+#daily {
+  position: absolute;
+  width: 100vw;
+  height: calc(100vh - 50px);
+  top: 50px;
+  left: 0;
+  z-index: 99;
+  background-color: #e8e3df;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .panes {
+    min-width: 400px;
+    padding: 1vmin;
+  }
+
+  .image {
+    flex: 2;
+
+    img {
+      width: 100%;
+      height: auto;
+      border: 1px solid gray;
+    }
+  }
+
+  .controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    #buttons {
+      justify-content: center;
+      width: 100%;
+      gap: 10px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      .link {
+        font-weight: bold;
+
+        a {
+          font-weight: normal;
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.button {
+  text-decoration: none;
+  color: black;
+  line-height: 40px;
 }
 </style>

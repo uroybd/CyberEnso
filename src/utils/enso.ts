@@ -1,4 +1,4 @@
-import { SourceStyleEnum, Poem } from './../common.types';
+import { SourceStyleEnum, Poem, DrawingData, PoemData } from './../common.types';
 import blake2b from "blake2b";
 
 function getRndInteger(min: number, max: number) {
@@ -19,6 +19,7 @@ function polarToCartesian(
     y: centerY + radius * Math.sin(angleInRadians),
   };
 }
+
 
 function describeArc(
   x: number,
@@ -95,7 +96,7 @@ export function getPoemSource(poemData: Poem, sourceStyle: SourceStyleEnum): str
   return source;
 }
 
-export function dataToPoem(data: { title: string, author: string, content: string }): Poem {
+export function dataToPoem(data: PoemData): Poem {
   const poem = {
     title: data.title,
     author: data.author,
@@ -104,10 +105,18 @@ export function dataToPoem(data: { title: string, author: string, content: strin
   return poem;
 }
 
+export function dataToText(data: PoemData) {
+  const output = [data.content, `— ${data.author}`]
+  if (data.title) {
+    output.unshift(data.title);
+  }
+  return output.join("\n\n");
+}
 
-export function getPoemCalculations(poemData: Poem, reverse: boolean, dimension: [number, number] = [2048, 2048]): {poem: string, hash: number[], arcs: string[]} {
+
+export function getPoemCalculations(poemData: Poem, reverse: boolean, dimension: [number, number] = [2048, 2048], size=512): DrawingData {
   const poem = poemData.lines.join("\n");
-
+  const lineWidth = size * 0.005859375;
   var output = new Uint8Array(32);
   var enc = new TextEncoder()
   var input = enc.encode(poem);
@@ -160,7 +169,7 @@ export function getPoemCalculations(poemData: Poem, reverse: boolean, dimension:
       describeArc(
         dimension[0] / 2,
         dimension[1] / 2,
-        512 - i * 3,
+        size - i * lineWidth,
         arc_start,
         arc_end,
         reverse ? 80 : -130,
@@ -172,6 +181,7 @@ export function getPoemCalculations(poemData: Poem, reverse: boolean, dimension:
     poem,
     hash,
     arcs,
+    lineWidth,
   };
 }
 
@@ -186,18 +196,29 @@ const THEMES = {
   }
 }
 
-export function generateSVGArc(arcDescription: string, color: string): string {
-    return `<path fill="none" stroke="${color}" stroke-width="5" d="${arcDescription}" stroke-linecap="round" shape-rendering="geometricPrecision" />`
+export function generateSVGArc(arcDescription: string, color: string, lineWidth: number): string {
+    return `<path fill="none" stroke="${color}" stroke-width="${lineWidth + 1}" d="${arcDescription}" stroke-linecap="round" shape-rendering="geometricPrecision" />`
 }
 
-export function generateSVG(arcs: string[], dimension: [number, number], dark: boolean = false, source: string | null = null): string {
+export function generateSVG(arcs: string[], lineWidth: number, dimension: [number, number], dark: boolean = false, source: string | null = null): string {
   let theme = dark ? THEMES['dark'] : THEMES['light']
   const parts = [`<svg id="svgenso" viewBox = "0 0 ${dimension.join(' ')}" xmlns = "http://www.w3.org/2000/svg" ><rect width="100%" height = "100%" fill = "${theme.bg}" />`];
   arcs.forEach((a) => {
-    parts.push(generateSVGArc(a, theme.fg));
+    parts.push(generateSVGArc(a, theme.fg, lineWidth));
   })
   if (source != null) {
-    parts.push(`<text x="${dimension[0] - 20}" y="${dimension[1] - 20}" color="${theme.fg}" text-anchor="end" font-size="40" font-family="Arnold, sans-serif">${source}</text>`);
+    const lines = source.split("\n");
+    let dyOffset = 0;
+    parts.push(`<text x="${dimension[0] - 20}" y="${dimension[1] - 20 - (lines.length * 50)}" fill="${theme.fg}" text-anchor="end" font-size="40" font-family="Arnold, sans-serif">`)
+    lines.forEach((line: string) => {
+      if (line) {
+        parts.push(`<tspan x="${dimension[0] - 20}" dy="${50 + dyOffset}px">${line}</tspan>`)
+        dyOffset = 0;
+      } else {
+        dyOffset = 50;
+      }
+    });
+    parts.push(`</text>`);
   }
   parts.push('</svg>')
   return parts.join("\n");
