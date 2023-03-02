@@ -35,7 +35,8 @@ const options = {
         quality: 100,
         font: {
             fontFiles: [
-                join(resolve('.'), 'src', 'assets', 'fonts', 'Lato-Regular.ttf')
+                // join(resolve('.'), 'src', 'assets', 'fonts', 'Lato-Regular.ttf'),
+                "./src/assets/fonts/Lato-Regular.ttf"
             ],
             loadSystemFonts: false,
             defaultFontFamily: 'Lato'
