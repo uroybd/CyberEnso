@@ -28,14 +28,22 @@ svg2img(svg_dark, function(error: any, buffer: any) {
 
 const text = dataToText(poem);
 const svg_source = generateSVG(arcs, lineWidth, dimension, false, text);
-svg2img(svg_source, function(error: any, buffer: any) {
+const options = {
+    resvg: {
+        font: {
+            fontFiles: ["./assets/fonts/Lato-Regular.ttf"]
+        }
+    }
+}
+
+svg2img(svg_source, options, function(error: any, buffer: any) {
     //returns a Buffer
     fs.writeFileSync('public/daily-source.png', buffer);
     fs.writeFileSync(`public/${today}-daily-source.png`, buffer);
 });
 
 const svg_source_dark = generateSVG(arcs, lineWidth, dimension, true, text);
-svg2img(svg_source_dark, function(error: any, buffer: any) {
+svg2img(svg_source_dark, options, function(error: any, buffer: any) {
     //returns a Buffer
     fs.writeFileSync('public/daily-source-dark.png', buffer);
     fs.writeFileSync(`public/${today}-daily-source-dark.png`, buffer);
