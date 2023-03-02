@@ -35,8 +35,10 @@ const options = {
         font: {
             fontFiles: ["./assets/fonts/Lato-Regular.ttf"],
             loadSystemFonts: true,
-        }
-    }
+        },
+        logLevel: 'debug'
+    },
+    
 }
 
 svg2img(svg_source, options, function(error: any, buffer: any) {
