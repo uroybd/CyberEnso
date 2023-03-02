@@ -35,7 +35,7 @@ const options = {
         font: {
             fontFiles: ["./assets/fonts/Lato-Regular.ttf"],
             loadSystemFonts: false,
-            defaultFontFamily: 'Lato',
+            defaultFontFamily: 'Lato Regular',
         }
     }
 }
