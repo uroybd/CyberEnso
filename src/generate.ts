@@ -29,7 +29,6 @@ svg2img(svg_dark, function(error: any, buffer: any) {
 
 const text = dataToText(poem);
 const svg_source = generateSVG(arcs, lineWidth, dimension, false, text);
-console.log(join(resolve('.'), 'src', 'assets', 'fonts', 'Roboto-Regular.ttf'));
 const options = {
     format: "jpg",
     quality: 100,

@@ -305,7 +305,8 @@ can we talk poetry.`
   {
     title: "Poem in Four Characters",
     author: "Ryōkan",
-    content: ["ABOVE heaven", "big winds"],
+    content: `ABOVE heaven
+big winds`
   },
   {
     title: "",
@@ -341,7 +342,9 @@ and yet . . . and yet . . .`
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["Matsushima ya", "ah Matsushima ya", "Matsushima ya"],
+    content: `Matsushima ya
+ah Matsushima ya
+Matsushima ya`,
   },
 
   {
@@ -510,7 +513,9 @@ songs of Nara`
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["On a bare branch,", "a solitary crow—", "autumn evening"],
+    content: `On a bare branch,
+a solitary crow—
+autumn evening`,
   },
 
   {
@@ -524,7 +529,9 @@ in the autumn wind?`
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["At the ancient pond", "a frog plunges into", "the sound of water"],
+    content: `At the ancient pond
+a frog plunges into
+the sound of water`,
   },
 
   {
@@ -554,7 +561,9 @@ this little firefly!`
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["On a white poppy,", "a butterfly’s torn wing", "is a keepsake"],
+    content: `On a white poppy,
+a butterfly’s torn wing
+is a keepsake`,
   },
 
   {
@@ -632,7 +641,9 @@ sleeping butterfly`
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["Lonely stillness—", "a single cicada’s cry", "sinking into stone"],
+    content: `Lonely stillness—
+a single cicada’s cry
+sinking into stone`,
   },
 
   {
@@ -646,13 +657,17 @@ or so it appears`
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["A wanderer,", "so let that be my name—", "the first winter rain"],
+    content: `A wanderer,
+so let that be my name—
+the first winter rain`,
   },
 
   {
     title: "",
     author: "Matsuo Bashō",
-    content: ["All along this road", "not a single soul—only", "autumn evening"],
+    content: `All along this road
+not a single soul—only
+autumn evening`,
   },
 
   {
