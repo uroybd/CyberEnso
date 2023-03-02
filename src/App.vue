@@ -358,7 +358,7 @@ const dailyVersions = {
   align-items: center;
 
   .panes {
-    min-width: 400px;
+    min-width: 350px;
     padding: 1vmin;
   }
 
