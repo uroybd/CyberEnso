@@ -34,8 +34,7 @@ const options = {
         quality: 100,
         font: {
             fontFiles: ["./assets/fonts/Lato-Regular.ttf"],
-            loadSystemFonts: false,
-            defaultFontFamily: 'Lato Regular',
+            loadSystemFonts: true,
         }
     }
 }
