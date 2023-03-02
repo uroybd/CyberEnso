@@ -98,13 +98,13 @@
         <div class="links">
           <div class="link">
             Generic:
-            <a href="`/${dailyVersions[state.currentVersion]}.jpg`"
+            <a :href="`/${dailyVersions[state.currentVersion]}.jpg`"
               >https://enso.utsob.me{{ `/${dailyVersions[state.currentVersion]}.jpg` }}</a
             >
           </div>
           <div class="link">
             Today:
-            <a href="`/${today}-${dailyVersions[state.currentVersion]}.jpg`"
+            <a :href="`/${today}-${dailyVersions[state.currentVersion]}.jpg`"
               >https://enso.utsob.me{{
                 `/${today}-${dailyVersions[state.currentVersion]}.jpg`
               }}</a
