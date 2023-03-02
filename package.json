@@ -7,6 +7,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "generate": "ts-node src/generate.ts",
+    "generate-all": "ts-node src/generate-all.ts",
     "deploy": "npm-run-all generate build"
   },
   "dependencies": {

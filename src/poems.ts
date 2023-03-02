@@ -1,4 +1,4 @@
-const POEMS = [
+export const POEMS = [
   {
     title: "",
     author: "Han Shan",
