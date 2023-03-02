@@ -74,7 +74,7 @@
     </div>
     <div id="daily" v-show="state.showDaily">
       <div class="panes image">
-        <img :src="`/${today}-${dailyVersions[state.currentVersion]}.png`" />
+        <img :src="`/${today}-${dailyVersions[state.currentVersion]}.jpg`" />
       </div>
       <div class="panes controls">
         <div id="buttons">
@@ -89,7 +89,7 @@
             </div>
           </div>
           <a
-            :href="`/${today}-${dailyVersions[state.currentVersion]}.png`"
+            :href="`/${today}-${dailyVersions[state.currentVersion]}.jpg`"
             class="button download"
             download
             >Download</a
@@ -98,15 +98,15 @@
         <div class="links">
           <div class="link">
             Generic:
-            <a href="`/${dailyVersions[state.currentVersion]}.png`"
-              >https://enso.utsob.me{{ `/${dailyVersions[state.currentVersion]}.png` }}</a
+            <a href="`/${dailyVersions[state.currentVersion]}.jpg`"
+              >https://enso.utsob.me{{ `/${dailyVersions[state.currentVersion]}.jpg` }}</a
             >
           </div>
           <div class="link">
             Today:
-            <a href="`/${today}-${dailyVersions[state.currentVersion]}.png`"
+            <a href="`/${today}-${dailyVersions[state.currentVersion]}.jpg`"
               >https://enso.utsob.me{{
-                `/${today}-${dailyVersions[state.currentVersion]}.png`
+                `/${today}-${dailyVersions[state.currentVersion]}.jpg`
               }}</a
             >
           </div>

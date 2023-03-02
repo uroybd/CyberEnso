@@ -4,3 +4,4 @@ dist
 dist-ssr
 *.local
 public/*daily*.png
+public/*daily*.jpg
