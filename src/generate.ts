@@ -29,17 +29,18 @@ svg2img(svg_dark, function(error: any, buffer: any) {
 
 const text = dataToText(poem);
 const svg_source = generateSVG(arcs, lineWidth, dimension, false, text);
+console.log(join(resolve('.'), 'src', 'assets', 'fonts', 'Roboto-Regular.ttf'));
 const options = {
     resvg: {
         format: "jpg",
         quality: 100,
         font: {
             fontFiles: [
-                // join(resolve('.'), 'src', 'assets', 'fonts', 'Lato-Regular.ttf'),
-                "./src/assets/fonts/Lato-Regular.ttf"
+                join(resolve('.'), 'src', 'assets', 'fonts', 'Roboto-Regular.ttf'),
+                // "./src/assets/fonts/Lato-Regular.ttf"
             ],
             loadSystemFonts: false,
-            defaultFontFamily: 'Lato'
+            defaultFontFamily: 'Roboto'
         },
         logLevel: 'debug'
     },
