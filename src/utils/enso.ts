@@ -209,7 +209,7 @@ export function generateSVG(arcs: string[], lineWidth: number, dimension: [numbe
   if (source != null) {
     const lines = source.split("\n");
     let dyOffset = 0;
-    parts.push(`<text x="${dimension[0] - 20}" y="${dimension[1] - 20 - (lines.length * 50)}" fill="${theme.fg}" text-anchor="end" font-size="40" font-family="Lato Regular, sans-serif">`)
+    parts.push(`<text x="${dimension[0] - 20}" y="${dimension[1] - 20 - (lines.length * 50)}" fill="${theme.fg}" text-anchor="end" font-size="40">`)
     lines.forEach((line: string) => {
       if (line) {
         parts.push(`<tspan x="${dimension[0] - 20}" dy="${50 + dyOffset}px">${line}</tspan>`)

@@ -1,3 +1,4 @@
+import { join, resolve } from "path";
 import { getRandomPoem } from "./poems";
 import { dataToPoem, dataToText, generateSVG, getPoemCalculations } from './utils/enso';
 const fs = require('fs');
@@ -33,8 +34,11 @@ const options = {
         format: "jpg",
         quality: 100,
         font: {
-            fontFiles: ["./assets/fonts/Lato-Regular.ttf"],
-            loadSystemFonts: true,
+            fontFiles: [
+                join(resolve('.'), 'fonts', 'Lato-Regular.ttf')
+            ],
+            loadSystemFonts: false,
+            defaultFontFamily: 'Lato'
         },
         logLevel: 'debug'
     },
